@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %}
+  <link rel="stylesheet" href="{% static 'authentication/css/register.css' %}">
+{% endblock %}
+
+{% block 'title' %}Criar conta{% endblock %}
+
+{% block 'body' %}
+<div class="main">
+  <center>
+    <h2>💊 PharmAlegre 🙂</h2>
+    <div class="form-area">
+      <form action="{% url 'register' %}" method="POST">{% csrf_token %}
+        <h2 class="form-title">Criar conta</h2>
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert {{ message.tags }}">
+              {{ message }}
+            </div>
+            <br>
+          {% endfor %}
+        {% endif %}
+        <input name="username" class="input-register name" type="text" placeholder="🧑 Usuário">
+        <br>
+        <br>
+        <input name="email" class="input-register" type="email" placeholder="📧 Email">
+        <br>
+        <br>
+        <input name="password" class="input-register" type="password" placeholder="🔑 Senha">
+        <br>
+        <br>
+        <input class="input-button" type="submit" value="Criar conta">
+      </form>
+      <p>Já tem uma conta? <a href={% url 'login' %}>Entrar</a></p>
+    </div>
+  </center>
+</div>
+{% endblock %}

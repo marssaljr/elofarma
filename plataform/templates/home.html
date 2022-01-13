@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %}
+  <link rel="stylesheet" href="{% static 'plataform/css/home.css' %}">
+  <script src="https://kit.fontawesome.com/2ce8403e7e.js" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block 'body' %}
+<div class="main">
+  <div class="filters">
+    <button type="button" id="filter" class="active filter" data-toggle="modal" data-target="#filterModal"><i class="fa fa-filter" aria-hidden="true"></i> Filtrar</button>
+  </div>
+
+  <div class="row grid">
+    {% for pill in medicines %}
+    <div class="column">
+      <div class="card-medicine">
+        <a class="card none" href={% url 'product' pill.id %}>
+        <img class="img-pill" src="{{ pill.images.all.0 }}" alt="{{ pill.name }}">
+        <div class="info-medicine">
+          <p>{{ pill.name }}</p>
+          <h4 class="price">R$ {{pill.price}}</h4>
+        </div>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <form action="{% url 'home' %}" method="GET">
+      <label for="min_price">Preço mínimo</label>
+      <br>      
+      <input id="min_price" name="min_price" class="form-control" type="number" placeholder="R$ 0,00"/>
+      <br>      
+      <label for="max_price">Preço máximo</label>
+      <br>      
+      <input id="max_price" name="max_price" class="form-control" type="number" placeholder="R$ 1999"/>
+      <br>      
+      <label>Tipo</label>
+      <br>      
+      <input id="g_category" name="category" type="checkbox" value="G">
+        <label for="g_category">&nbspGenérico</label>
+      </input>
+      <input id="s_category" name="category" type="checkbox" value="S">
+        <label for="s_category">&nbspSimilar</label>
+      </input>
+      <br>
+      <button class="btn-filter" type="submit">Filtrar</button>
+    </form>
+  </div>
+
+</div>
+
+<script>
+var modal = document.getElementById("myModal");
+var btn = document.getElementById("filter");
+var span = document.getElementsByClassName("close")[0];
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+span.onclick = function() {
+  modal.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+{% endblock %}
