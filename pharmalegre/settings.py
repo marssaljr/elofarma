@@ -2,11 +2,12 @@ from pathlib import Path
 import os
 from django.contrib.messages import constants
 import environ
+import django_heroku
 
 environ.Env.read_env()
 # I replaced the secret key line with this
 SECRET_KEY = os.environ['secret_key']
-
+django_heroku.settings(locals())
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
