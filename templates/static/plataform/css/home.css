@@ -9,6 +9,7 @@
   --clr-primary: #7bc3a8;
   --clr-secondary: #d8315b;
   --clr-black: #0c121b;
+  --border-radius: 0.2em;
 }
 body {
   background-color: var(--clr-background);
@@ -110,6 +111,7 @@ body {
   z-index: 1; /* Sit on top */
   left: 0;
   top: 0;
+  border-radius: var(--border-radius);
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
