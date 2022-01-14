@@ -26,10 +26,10 @@ def register(request):
         try:
             user = User.objects.create_user(username=username, email=email, password=password)
             user.save()
-            message.add_message(request, constants.SUCCESS, 'Cadastro realizado com sucesso')
+            messages.add_message(request, constants.SUCCESS, 'Cadastro realizado com sucesso')
             return redirect('/auth/login')
         except:
-            message.add_message(request, constants.ERROR, 'Erro interno no servidor')
+            messages.add_message(request, constants.ERROR, 'Erro interno no servidor')
             return redirect('/auth/register')
 
 def login(request):
