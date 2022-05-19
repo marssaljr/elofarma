@@ -2,36 +2,40 @@
 {% load static %}
 
 {% block 'head' %}
-  <link rel="stylesheet" href="{% static 'authentication/css/register.css' %}">
+<link rel="stylesheet" href="{% static 'authentication/css/register.css' %}">
 {% endblock %}
 
 {% block 'title' %}Entrar{% endblock %}
 
 {% block 'body' %}
-<div class="main">
-  <center>
-    <h2>💊 PharmAlegre 🙂</h2>
-    <div class="form-area">
+<main >
+  <div class="center">
+    <h2 class="form-title">Elo<strong>Farma</strong></h2>
+    <h5 class="form-description">Entre com sua conta</h5>  
       <form action="{% url 'login' %}" method="POST">{% csrf_token %}
-        <h2 class="form-title">Entrar</h2>
+        
         {% if messages %}
-          {% for message in messages %}
-            <div class="alert {{ message.tags }}">
-              {{ message }}
-            </div>
-            <br>
-          {% endfor %}
+        {% for message in messages %}
+        <div class="alert {{ message.tags }}">
+          {{ message }}
+        </div>
+        <br>
+        {% endfor %}
         {% endif %}
-        <input name="username" class="input-register name" type="text" placeholder="🧑 Usuário">
-        <br>
-        <br>
-        <input name="password" class="input-register" type="password" placeholder="🔑 Senha">
-        <br>
-        <br>
+        <div class="inputs">
+          <label for="username" class="label">usuario</label>
+          <input name="username" id="username" class="input-register name" type="text" placeholder="Digite seu usuario">
+          <br>
+        </div>
+        <div class="inputs">
+          <label for="password" class="label">senha</label>
+          <input name="password" class="input-register" type="password" placeholder="Digite sua senha">
+          <br>
+        </div>
         <input class="input-button" type="submit" value="Entrar">
       </form>
-      <p>Ainda não tem uma conta? <a href={% url 'register' %}>Registre-se</a></p>
-    </div>
-  </center>
-</div>
+      <br>
+      <p class="mt-2">Ainda não tem uma conta? <a href={% url 'register' %}>Crie uma</a></p>
+  </div>
+</main>
 {% endblock %}

@@ -49,6 +49,23 @@ def login(request):
             auth.login(request, user)
             return redirect('/')
 
+def log(request):
+    if request.method == "GET":
+        if request.user.is_authenticated:
+            return redirect('/')
+        return render(request, 'log.html')
+    elif request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = auth.authenticate(username=username, password=password)
+        if not user:
+            messages.add_message(request, constants.ERROR, 'Usuario ou senha invalidos!')
+            return redirect('auth/log')
+        else:
+            auth.login(request, user)
+            return redirect('/')
+
 def logout(request):
     auth.logout(request)
     return redirect('/auth/login')

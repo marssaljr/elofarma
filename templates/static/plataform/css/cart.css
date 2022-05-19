@@ -1,0 +1,13 @@
+.cart {
+	display: flex;
+	justify-content: space-between;
+}
+
+.order-info, .cart-info {	
+	display: flex;
+	gap: 1rem;
+}
+
+.container-md {
+	margin-bottom: 70vh;
+}

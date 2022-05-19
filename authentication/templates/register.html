@@ -1,40 +1,42 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block 'head' %}
   <link rel="stylesheet" href="{% static 'authentication/css/register.css' %}">
 {% endblock %}
-
 {% block 'title' %}Criar conta{% endblock %}
-
 {% block 'body' %}
-<div class="main">
-  <center>
-    <h2>💊 PharmAlegre 🙂</h2>
-    <div class="form-area">
+  <main >
+    <div class="center">
+      <h2 class="form-title">Elo<strong>Farma</strong></h2>
+      <h5 class="form-description">Crie sua conta</h5>
       <form action="{% url 'register' %}" method="POST">{% csrf_token %}
-        <h2 class="form-title">Criar conta</h2>
         {% if messages %}
           {% for message in messages %}
             <div class="alert {{ message.tags }}">
-              {{ message }}
+              {{ message }}!
             </div>
             <br>
           {% endfor %}
         {% endif %}
-        <input name="username" class="input-register name" type="text" placeholder="🧑 Usuário">
-        <br>
-        <br>
-        <input name="email" class="input-register" type="email" placeholder="📧 Email">
-        <br>
-        <br>
-        <input name="password" class="input-register" type="password" placeholder="🔑 Senha">
-        <br>
-        <br>
+        <div class="inputs">
+          <label for="email" class="label">usuário</label>
+          <input name="username" class="input-register name" type="text" placeholder="Digite seu usuário">
+          <br>
+        </div>
+        <div class="inputs">
+          <label for="email" class="label">email</label>
+          <input name="email" class="input-register" type="email" placeholder="Digite seu email">
+          <br>
+        </div>
+        <div class="inputs">
+          <label for="password" class="label">senha</label>
+          <input name="password" class="input-register" type="password" placeholder="Digite sua senha">
+          <br>
+        </div>        
         <input class="input-button" type="submit" value="Criar conta">
       </form>
-      <p>Já tem uma conta? <a href={% url 'login' %}>Entrar</a></p>
+      <br>
+      <p class="mt-2">Já tem uma conta? <a href={% url 'login' %}>Entre</a></p>
     </div>
-  </center>
-</div>
+  </main>
 {% endblock %}

@@ -24,7 +24,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    'pharmalegre.herokuapp.com'
+    '192.168.1.2',
+    '192.168.1.3',
+    '192.168.1.4',
+    'pharmalegre.herokuapp.com',
+    'localhost'
 ]
 
 
@@ -38,9 +42,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'fontawesomefree',
     'authentication',
     'plataform',
+    'cart',
 ]
+CART_SESSION_ID = 'cart'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,7 +64,7 @@ MIDDLEWARE = [
 # WHITENOISE_USE_FINDERS = True
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-ROOT_URLCONF = 'pharmalegre.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -74,7 +82,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'pharmalegre.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database

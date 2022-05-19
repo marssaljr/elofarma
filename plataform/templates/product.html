@@ -10,39 +10,31 @@
 {% endblock %}
 
 {% block 'body' %}
-<div class="main">
-    <br>
-    <div class="product">
+<div class="backg">
+</div>
+<div class="product">
+
+    <div class="images">
     {% for img in product.images.all %}
-      <img class="product_img" src="{{img}}" alt="First slide">
+    <img src="{{img}}" />
     {% endfor %}
     </div>
-  <div class="row">
-    <p class="product_especs">Preço: R$ {{product.price}}</p>
-    <p class="product_especs">Tipo {{product.category }}</p>
-    <button data-toggle="modal" data-target="#exampleModal">Comprar</button>
-  </div>
-  <br>
-  <div style="center">
-    <hr>
-    <h3 class="title_description">Descrição</h3>
-    <p class="product_description">{{product.description}}</p>
-    <br>
-  </div>
-  <hr>
-  <br>
-  <div class="interests">
-    <h3 class="title_specs">Talvez você se interesse por</h3>
-    <div class="row">
+
+    <div>
+    <h1>{{product.name}}</h1>
+    <p class="pill-text"><strike>R$ {{product.price|add:5 }}</strike> <b>R$ {{product.price}}</b></p>
+    <p class="category">{{product.category }}</p>
+    <p>{{product.description}}</p>
       {% for suggestion in suggestions %}
-      <a class="none br-5" href="{% url 'product' suggestion.id %}">
-        <div class="card_product">
-          <img class="suggestion_img" src="{{suggestion.images.all.0.img.url}}" alt="{{suggestion.name}}"/>
-          <h4 class="price">R$ {{suggestion.price}}</h4>
-        </div>
+      <div>
+      <a href="{% url 'product' suggestion.id %}">
+        <img src="{{suggestion.images.all.0.img.url}}" />
+        <h3>{{suggestion.name}}</h3>
+        <p>{{suggestion.price}}</p>
+      </div>
       </a>
-      {% endfor %}
+    {% endfor %}
     </div>
-  </div>
+
 </div>
 {% endblock %}
