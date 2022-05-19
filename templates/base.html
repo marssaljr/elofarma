@@ -1,30 +1,46 @@
 {% load static %}
+{% load cart_tag %}
 <!doctype html>
 <html lang="pt-BR">
-<head>
-{% block 'head' %}{% endblock %}
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">-->
-  <title>PharmAlegre - {% block 'title' %}{% endblock %}</title>
-  <link rel="stylesheet" href="{% static 'global/styles.css' %}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap" rel="stylesheet">
-</head>
-<body>
-  <div class="navbar">
-    <a class="brand" href="{% url 'home'%}">
-      <img src="{% static 'global/img/logo.png' %}" width="10%"><p>PharmAlegre</p></a>
-    <ul class="navlinks">
-    {% if user.is_authenticated %}
-      <li class="right"><i class="fa fa-user-circle" aria-hidden="true"></i> {{user}}</li>
-      <li class="right"><i class="fa fa-shopping-cart" aria-hidden="true"></i></li>
-      {% endif %}
-    </ul>    
-  </div>
-{% block 'body' %}{% endblock %}
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" ></script>-->
-</body>
+  <head>
+    {% block 'head' %}{% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous">
+      <title>EloFarma - {% block 'title' %}{% endblock %}</title>
+      <link rel="stylesheet" href="{% static 'global/styles.css' %}">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+      <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&display=swap" rel="stylesheet"> 
+    </head>
+    <body>
+      <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand disabled">Elo<strong>Farma</strong></a>
+          {% if user.is_authenticated %}
+          {% if request.session.cart|length != 0 %}
+          <div>          
+            <button class="btn btn-outline-warning mb-2" onclick="location.href='{% url 'cart_detail' %}'"><i class="fa-solid fa-cart-shopping"></i></button>
+          {% endif %}
+          <!-- <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" id="q" name="q" placeholder="Paracetamol..." aria-label="Search">
+            <button class="btn btn-outline-warning" type="submit">Buscar</button>
+          </form>       -->   
+            <div>{{ user }}</div>
+          </div>
+          {% endif %}
+        </div>
+      </nav>
+      {% block 'body' %}{% endblock %}
+      <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <footer><a href="https://github.com/marssaljr">@Marssaljr - 2022</a></footer>
+  </body>
 </html>

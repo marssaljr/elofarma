@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load cart_tag %}
+{% load static %}
+
+{% block 'head' %}
+  <link rel="stylesheet" href="{% static 'plataform/css/cart.css' %}">
+{% endblock %}
+
+{% block 'title' %}
+  Carrinho
+{% endblock %}
+
+{% block 'body' %}
+{% if request.session.cart|length != 0 %}
+<div class="container-md mt-5 pb-5">
+	<button class="btn btn-outline-warning mb-2" onclick="location.href='{% url 'home' %}'"><i class="fa-solid fa-circle-chevron-left"></i></button>
+	<div class="order-info">
+		<div>Subtotal: </div>
+		<div>Total: </div>
+		<div>Itens: {{request.session.cart|length}}</div>
+	</div>
+<hr>
+
+{% for key,value in request.session.cart.items %}
+	<div class="cart">
+		<div class="cart-info">
+    	<span><img src="{{value.image}}" width="120" height="80"><br></span>
+    	<span>{{value.name}}<br></span>
+    	<span>{{value.price}} <br></span>
+    	<span>{{value.quantity}}  <br></span>
+    	<span>Total {{ value.price|multiply:value.quantity }}</span>
+  	</div>
+  	<div class="cart-actions">
+			<button class="btn btn-outline-warning" onclick="location.href='{% url 'item_decrement' value.product_id %}'">-</button>
+			<button class="btn btn-outline-primary" onclick="location.href='{% url 'item_increment' value.product_id %}'">+</button>					
+		</div>
+	</div>
+{% endfor %}
+{% for order in order_item %}
+
+	{% for item in items %}
+		{% if item.values.0.quantity > 0 %}
+		{% if item.values.0.id == order.item_id %}
+			<div class="cart">
+				<div class="cart-info">
+					<span>{{ item.values.0.name }}</span>
+					<span>{{ item.values.0.category }}</span>
+					<span>{{ order.quantity }}</span>
+					<span>{{ item.values.0.price }}</span>
+				</div>
+				<div class="cart-actions">
+					<button class="btn btn-outline-warning" onclick="location.href='{% url 'remove_cart' item.values.0.id %}'"><i class="fa-regular fa-square-minus"></i></button>
+					<button class="btn btn-outline-primary" onclick="location.href='{% url 'add_cart' item.values.0.id %}'"><i class="fa-solid fa-circle-plus"></i></button>					
+				</div>
+			</div>
+		{% endif %}			
+		{% endif %}
+	{% endfor %}	
+	<hr>
+{% endfor %}
+</div>
+{% else %}
+<div class="container-md p-5">
+<button class="btn btn-outline-warning" onclick="location.href='{% url 'home' %}'"><i class="fa-solid fa-circle-chevron-left"></i></button>
+<p class="m-2"><i class="fa-solid fa-cart-shopping"></i> Carrin vazio</p>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,75 +1,90 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block 'head' %}
   <link rel="stylesheet" href="{% static 'plataform/css/home.css' %}">
-  <script src="https://kit.fontawesome.com/2ce8403e7e.js" crossorigin="anonymous"></script>
 {% endblock %}
-
 {% block 'body' %}
-<div class="main">
-  <div class="filters">
-    <button type="button" id="filter" class="active filter" data-toggle="modal" data-target="#filterModal"><i class="fa fa-filter" aria-hidden="true"></i> Filtrar</button>
-  </div>
+  <!-- <header class="masthead bg-dark text-white text-center">
+    <h1 class="display-1">EloFarma</h1>
+    <p></p>
+  </header> -->
+  <header class="header">
+    <h2 class="form-title">Elo<strong>Farma</strong></h2>
+    <p>sinônimo de economia e qualidade. Agora mais pertinho de você!
+</p>
+  </header>
+  <main>    
+    <div class="center container-md">
 
-  <div class="row grid">
-    {% for pill in medicines %}
-    <div class="column">
-      <div class="card-medicine">
-        <a class="card none" href={% url 'product' pill.id %}>
-        <img class="img-pill" src="{{ pill.images.all.0 }}" alt="{{ pill.name }}">
-        <div class="info-medicine">
-          <p>{{ pill.name }}</p>
-          <h4 class="price">R$ {{pill.price}}</h4>
+      <h2>O remedio que voce procura</h2>
+
+      <form class="search" role="search">
+        <input class="input-search" type="search" id="q" name="q" placeholder="Search" aria-label="Search">
+        <button class="button" type="submit">Search</button>
+      </form>
+
+      <div class="grid">
+      {% for pill in medicines %}
+      <div class="pill">
+        <img src="{{ pill.image.url }}" class="card-img-top" alt="{{ pill.image }}">
+        <div class="pill-body">
+          <h4>{{ pill.name }}</h4>
+          <p class="pill-text"><strike>R$ {{pill.price|add:5 }}</strike> <b>R$ {{pill.price}}</b></p>
         </div>
-        </a>
+        <button class="button-buy" onclick="location.href='{% url 'cart_add' pill.id %}'" >Adicionar ao Carrinho</button>
       </div>
-    </div>
-    {% endfor %}
-  </div>
-</div>
-
-<div id="myModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <form action="{% url 'home' %}" method="GET">
-      <label for="min_price">Preço mínimo</label>
-      <br>      
-      <input id="min_price" name="min_price" class="form-control" type="number" placeholder="R$ 0,00"/>
-      <br>      
-      <label for="max_price">Preço máximo</label>
-      <br>      
-      <input id="max_price" name="max_price" class="form-control" type="number" placeholder="R$ 1999"/>
-      <br>      
-      <label>Tipo</label>
-      <br>      
-      <input id="g_category" name="category" type="checkbox" value="G">
-        <label for="g_category">&nbspGenérico</label>
-      </input>
-      <input id="s_category" name="category" type="checkbox" value="S">
-        <label for="s_category">&nbspSimilar</label>
-      </input>
+      {% endfor %}
+      </div>
       <br>
-      <button class="btn-filter" type="submit">Filtrar</button>
-    </form>
-  </div>
+    </div>
+      <div class="text-middle"><p>Ei, você aí no celular, já baixou o nosso aplicativo?<br>
+      Você pode consultar preços, fazer pedidos e ainda falar com o nosso serviço de atendimento ao consumidor.<br> Não perca mais tempo, na sua primeira compra a entrega é gratuita</p></div>
 
-</div>
+    <div class="center container">
+      <h2 class="display-5">Veja a opiniao dos clientes</h2>
+      <div class="reviews">
+        <div class="review">
+        <img src="https://github.com/farnetani.png" class="card-img-top" alt="x"/>
+        <div class="review-body">
+          <h4>Farnetani</h4>
+          <p class="review-text">Com estacionamento próprio  e uma gama enorme de medicamentos com funcionários educados.</p>
+        </div><!-- review-body -->
+        </div>
 
-<script>
-var modal = document.getElementById("myModal");
-var btn = document.getElementById("filter");
-var span = document.getElementsByClassName("close")[0];
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-span.onclick = function() {
-  modal.style.display = "none";
-}
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-</script>
+        <div class="review">
+          <img src="https://lh3.googleusercontent.com/a-/AOh14GhOjxxAlbNwmfLyfrYgz6Ye7r0ve4uY8CdJjXO9-w=s200-c0x00000000-cc-rp-ba4" class="card-img-top" alt="x"/>
+          <div class="review-body">
+            <h3>Juliana Machado</h3>
+            <p class="review-text">Sempre apresentam produtos de qualidade, atendimento impecável e preço razoável.</p>
+          </div><!-- review-body -->
+        </div>
+
+        <div class="review">
+          <img src="https://lh3.googleusercontent.com/a-/AOh14GhjzjaS7a1ozxmxp5otrV0vNTq9byalfBmoRaTBjnk=s200-c0x00000000-cc-rp-ba4" class="card-img-top" alt="x"/>
+          <div class="review-body">
+            <h3>Augusto Teruel</h3>
+            <p class="review-text">"Bons produtos e equipe muito simpática, sempre fui e sou muito bem tratado."</p>
+          </div><!-- review-body -->
+        </div>     
+
+        <div class="review">
+          <img src="https://lh3.googleusercontent.com/a-/AOh14GjqN-3j8RRTld5cE5ruAEgOVMmvBYojU3ufqnM6=s200-c0x00000000-cc-rp" class="card-img-top" alt="x"/>
+          <div class="review-body">
+            <h3>Rapha Breviário</h3>
+            <p class="review-text">"Os preços são bem acessíveis, com parcelamento em até 6x no cartão."</p>
+          </div><!-- review-body -->
+        </div>    
+      </div><!-- reviews -->
+
+      <div class="feedback mt-5">
+        <h2>Deixe seu feedback!</h2>
+        <div class="form-floating">
+          <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+          <label for="floatingTextarea2">Comentarios</label>
+          <button class="btn btn-outline-warning mt-2 mb-5">Enviar Feedback</button>
+        </div>        
+      </div>
+
+    </div>
+  </main>
 {% endblock %}
